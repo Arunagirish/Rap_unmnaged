@@ -1,0 +1,61 @@
+unmanaged implementation in class zbp_i_lfa1 unique;
+strict ( 2 );
+with draft;
+define behavior for ZI_lfa1
+draft table zdlfa1
+//early numbering
+//late  numbering
+lock master
+total etag Changed_on
+authorization master ( instance )
+etag master Changed_on
+{
+  create;
+  update(features : instance);
+  delete(features : instance);
+  field ( numbering : managed, readonly) Lifnr;
+  association _lfb1 { create; with draft;}
+
+  save (finalize) action save_finalize;
+
+determination modify_determination on modify{create;update;field Name1;}
+  determination save_determination on save {create;update;field Name1;}
+
+  draft action edit;
+  draft action activate;
+  draft action Discard;
+  draft action Resume;
+  draft determine action Prepare;
+
+  mapping for zlfa1
+  {
+  Lifnr = lifnr;
+  Land1 = land1;
+  Name1 = name1;
+  Changed_on = changed_on;
+//  Creat = created_on;
+  }
+
+}
+
+define behavior for ZI_lfb1 //alias <alias_name>
+draft table zlfb1_2
+//early numbering
+//late numbering
+lock dependent by _lfa1
+authorization dependent by _lfa1
+etag dependent by _lfa1
+
+{
+  update;
+  delete;
+  field ( numbering : managed,readonly ) Bukrs;
+  field(readonly)Lifnr;
+  association _lfa1{ with draft;}
+  mapping for zlfb1
+  {
+  Lifnr = lifnr;
+  Bukrs = bukrs;
+  }
+
+}

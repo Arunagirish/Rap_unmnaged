@@ -1,0 +1,26 @@
+projection implementation in class zbp_c_lfa1 unique;
+strict ( 2 );
+use draft;
+define behavior for ZC_lfa1 //alias <alias_name>
+use etag
+{
+  use create(augment);
+  use update(augment);
+  use delete;
+
+  use action edit;
+  use action activate;
+  use action Discard;
+  use action Resume;
+  use action Prepare;
+
+  use association _lfb1 { create; with draft; }
+}
+
+define behavior for ZC_LFB1 //alias <alias_name>
+{
+  use update;
+  use delete;
+
+  use association _lfa1 { with draft; }
+}

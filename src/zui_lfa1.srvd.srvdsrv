@@ -1,0 +1,5 @@
+@EndUserText.label: 'service defn for lfa1'
+define service ZUI_LFA1 {
+  expose ZC_lfa1;
+  expose ZC_LFB1;
+}
